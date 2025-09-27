@@ -21,19 +21,16 @@ class ImageRGBAnalyzer:
         ttk.Button(frm, text='Choose Image B', command=self.load_b).grid(row=1, column=1, padx=4, pady=4)
         ttk.Button(frm, text='Analyze', command=self.analyze).grid(row=1, column=2, padx=4, pady=4)
 
-        # Canvas для изображений
         self.canvas_a = tk.Canvas(frm, width=480, height=320, bg='gray')
         self.canvas_b = tk.Canvas(frm, width=480, height=320, bg='gray')
         self.canvas_a.grid(row=2, column=0, padx=4, pady=4)
         self.canvas_b.grid(row=2, column=1, padx=4, pady=4)
 
-        # Метки для числовых средних
         self.label_avg_a = ttk.Label(frm, text='RGB A: N/A')
         self.label_avg_b = ttk.Label(frm, text='RGB B: N/A')
         self.label_avg_a.grid(row=3, column=0)
         self.label_avg_b.grid(row=3, column=1)
 
-        # ссылки на изображения (для Tkinter)
         self.imgtk_a = None
         self.imgtk_b = None
         self.img_a = None
@@ -41,7 +38,6 @@ class ImageRGBAnalyzer:
         self.arr_a = None
         self.arr_b = None
 
-        # контейнеры для гистограмм
         self.hist_frames = [ttk.Frame(frm) for _ in range(6)]
         for i, f in enumerate(self.hist_frames):
             f.grid(row=4, column=i%2, padx=4, pady=4)
@@ -72,8 +68,8 @@ class ImageRGBAnalyzer:
         # Среднее RGB
         avg_a = np.mean(self.arr_a, axis=(0, 1))
         avg_b = np.mean(self.arr_b, axis=(0, 1))
-        self.label_avg_a.config(text=f'Average RGB A: {avg_a[0]:.1f}, {avg_a[1]:.1f}, {avg_a[2]:.1f}')
-        self.label_avg_b.config(text=f'Average RGB B: {avg_b[0]:.1f}, {avg_b[1]:.1f}, {avg_b[2]:.1f}')
+        self.label_avg_a.config(text=f'RGB A: {avg_a[0]:.1f}, {avg_a[1]:.1f}, {avg_a[2]:.1f}')
+        self.label_avg_b.config(text=f'RGB B: {avg_b[0]:.1f}, {avg_b[1]:.1f}, {avg_b[2]:.1f}')
 
         # Очистка предыдущих гистограмм
         for frame in self.hist_frames:
@@ -109,7 +105,7 @@ class LauncherApp(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('RGB Analyzer')
-        self.geometry('1000x800')
+        self.geometry('1100x700')
         self.image_module = ImageRGBAnalyzer(self)
         self.image_module.frame.pack(fill='both', expand=True)
 
